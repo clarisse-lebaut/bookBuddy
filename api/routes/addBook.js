@@ -4,6 +4,7 @@ const Book = require('../models/book');
 
 const router = express.Router();
 
+// Route that allows you to add a book in user's collection
 router.post('/', async (request, response) => {
   try {
     const user = await User.findOne({ _id: request.body.userId });
@@ -11,13 +12,22 @@ router.post('/', async (request, response) => {
 
     if (user === null) {
       return response.status(404).json({
-        message: "The user doesn't exist in the database.",
+        message: "User doesn't exist in the database.",
       });
     }
 
     if (book === null) {
       return response.status(404).json({
-        message: "The book doesn't exist in the database.",
+        message: "Book doesn't exist in the database.",
+      });
+    }
+
+    const bookExistInCollection = user.collections.some(
+      (collection) => collection._id.toString() === request.body.bookId
+    );
+    if (bookExistInCollection) {
+      return response.status(404).json({
+        message: "Book already exist in user's collection.",
       });
     }
 
@@ -28,7 +38,7 @@ router.post('/', async (request, response) => {
       categories: book.categories,
       image: book.image,
       pages: book.pages,
-      status: { state: 'non-lu', currentPage: 1 },
+      status: { state: 'unread', currentPage: 1 },
     };
     const updatedUser = await User.updateOne(
       { _id: user._id },

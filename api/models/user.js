@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     require: true,
   },
   collections: [],
+  favorites: [],
 });
 
 const User = mongoose.model('User', userSchema, 'user');

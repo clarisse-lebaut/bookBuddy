@@ -1,12 +1,19 @@
 const express = require('express');
-const Book = require('../models/book');
+const User = require('../models/user');
 
 const router = express.Router();
 
+// Route that allows you to get a list of books of a user's collections
 router.get('/', async (_, response) => {
   try {
-    const books = await Book.find({});
-    response.status(200).json(books);
+    const user = await User.findOne({ _id: request.body.userId });
+    if (user === null) {
+      return response.status(404).json({
+        message: "User doesn't exist in the database.",
+      });
+    }
+
+    response.status(200).json(user.collections);
   } catch (error) {
     response.status(404).json({ message: error.message });
   }
