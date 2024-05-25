@@ -1,8 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const userRouter = require("./rootsUser.js");
 
 const app = express();
-const port = 3000;
+const port = 2024;
+
+app.use(express.json());
+app.use("/user", userRouter);
 
 mongoose.connect(`mongodb://localhost:27017/BookBuddy`);
 
@@ -30,3 +35,6 @@ app.use('/api/reward', rewardRoute);
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+// Exportation du serveur
+module.exports = app;
