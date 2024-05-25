@@ -15,8 +15,6 @@ router.post('/', async (request, response) => {
         username: request.body.username,
         email: request.body.email,
         password: request.body.password, // I avoid to use bcrypt for now but I know is dangerous to let password be saved like that
-        collections: [],
-        favorites: [],
       }).save();
       response.status(201).json(newUser);
     } else {

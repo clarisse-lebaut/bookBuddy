@@ -5,44 +5,30 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-// Route that allows you to get a specific book (:action = :id) or a list of book that correspond to criteria (:action = :filter)
-router.get('/:action', async (request, response) => {
+// Route that allows you to get a specific book or a list of book by criteria
+router.get('/:id?', async (request, response) => {
   try {
-    const action = request.params.action;
-
-    if (mongoose.Types.ObjectId.isValid(action)) {
-      const book = await Book.findById(action);
-
-      if (book === null) {
-        return response.status(404).json({ message: "Book doesn't exit in the database." });
-      }
-
+    if (request.params.id) {
+      const book = await Book.findOne({ _id: request.params.id });
       return response.status(200).json(book);
-    }
+    } else {
+      const filter = {};
 
-    const categoryFilter = [
-      'science-fiction',
-      'fantaisie',
-      'nouvelle',
-      'horreur',
-      'roman',
-      'policier',
-    ];
-    if (categoryFilter.includes(action)) {
-      const books = await Book.find({ categories: { $in: [action] } });
-
-      if (books === null) {
-        return response
-          .status(404)
-          .json({ message: "Books with that category doesn't exit in the database." });
+      if (request.query.title) {
+        filter.title = request.query.title;
       }
 
-      return response.status(200).json(books);
-    }
+      if (request.query.author) {
+        filter.author = request.query.author;
+      }
 
-    return response
-      .status(404)
-      .json({ message: "Request parameter doesn't correspond to criteria." });
+      if (request.query.categories) {
+        filter.categories = { $in: request.query.categories.split(',') };
+      }
+
+      const books = await Book.find(filter);
+      return response.status(200).json({ filter, results: books });
+    }
   } catch (error) {
     response.status(404).json({ message: error.message });
   }

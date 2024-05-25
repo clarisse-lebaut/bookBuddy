@@ -24,6 +24,9 @@ app.use('/api/books', booksRoute);
 const bookRoute = require('./routes/book');
 app.use('/api/book', bookRoute);
 
+const rewardRoute = require('./routes/reward');
+app.use('/api/reward', rewardRoute);
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
