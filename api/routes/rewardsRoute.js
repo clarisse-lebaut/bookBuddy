@@ -4,9 +4,9 @@ const User = require('../models/user');
 const router = express.Router();
 
 // Route that allows you to modify user's rewards
-router.post('/:id', async (request, response) => {
+router.post('/rewards/:userId', async (request, response) => {
   try {
-    const user = await User.findOne({ _id: request.params.id });
+    const user = await User.findOne({ _id: request.params.userId });
 
     if (user === null) {
       return response.status(404).json({

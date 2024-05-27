@@ -91,10 +91,10 @@ router.put(
     try {
       const updatedUser = await User.updateOne(
         {
-          _id: request.body.userId,
-          collections: { $elemMatch: { _id: request.params.id } },
+          _id: request.params.userId,
+          collections: { $elemMatch: { _id: request.params.bookId } },
         },
-        { $set: { 'collections.$.status.currentPage': request.params.currentPage } }
+        { $set: { 'collections.$.status.currentPage': parseInt(request.params.currentPage) } }
       );
 
       response.status(200).json(updatedUser);
@@ -108,14 +108,13 @@ router.put(
 router.post('/collection/:userId/new/:bookId', async (request, response) => {
   try {
     const user = await User.findOne({ _id: request.params.userId });
-    const book = await Book.findOne({ _id: request.params.bookId });
-
     if (user === null) {
       return response.status(404).json({
         message: "User doesn't exist in the database.",
       });
     }
 
+    const book = await Book.findOne({ _id: request.params.bookId });
     if (book === null) {
       return response.status(404).json({
         message: "Book doesn't exist in the database.",
@@ -154,14 +153,13 @@ router.post('/collection/:userId/new/:bookId', async (request, response) => {
 router.post('/favorites/:userId/new/:bookId', async (request, response) => {
   try {
     const user = await User.findOne({ _id: request.params.userId });
-    const book = await Book.findOne({ _id: request.params.bookId });
-
     if (user === null) {
       return response.status(404).json({
         message: "User doesn't exist in the database.",
       });
     }
 
+    const book = await Book.findOne({ _id: request.params.bookId });
     if (book === null) {
       return response.status(404).json({
         message: "Book doesn't exist in the database.",
@@ -169,7 +167,7 @@ router.post('/favorites/:userId/new/:bookId', async (request, response) => {
     }
 
     const bookExistInFavorite = user.favorites.some(
-      (favorite) => favorite._id.toString() === request.body.bookId
+      (favorite) => favorite._id.toString() === request.params.bookId
     );
     if (bookExistInFavorite) {
       return response.status(404).json({

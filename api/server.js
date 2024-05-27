@@ -15,6 +15,9 @@ db.once('open', () => console.log('Connected to the database!'));
 const booksRoute = require('./routes/booksRoute');
 app.use(booksRoute);
 
+const rewardsRoute = require('./routes/rewardsRoute');
+app.use(rewardsRoute);
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
