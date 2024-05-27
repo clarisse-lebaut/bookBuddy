@@ -13,7 +13,8 @@ db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to the database!'));
 
 const booksRoute = require('./routes/booksRoute');
-app.use(booksRoute);
+const usersRoute = require('./routes/usersRoute');
+app.use(booksRoute, usersRoute);
 
 const rewardsRoute = require('./routes/rewardsRoute');
 app.use(rewardsRoute);

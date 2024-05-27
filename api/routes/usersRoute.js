@@ -19,6 +19,10 @@ router.use(
   })
 );
 
+router.get('/getAll', async (req, res) => {
+  res.send("user - récupérer tous les utilisateurs");
+});
+
 router.post("/addUser", async (req, res) => {
   // res.send("user - ajouter un utilisateur");
   const { username, password } = req.body;
@@ -65,7 +69,7 @@ router.put("/user/:id", async (req, res) => {
   }
 });
 
-router.post("/connexion", async (req, res) => {
+router.post("/login", async (req, res) => {
   // res.send("user - pour se connecter");
   const { username, password } = req.body;
   try {
@@ -96,7 +100,7 @@ router.get("/protected", isAuthenticated, (req, res) => {
   res.send("Welcome to the protected area");
 });
 
-router.post("/logout", (req, res) => {
+router.post("user/logout", (req, res) => {
   // res.send("user - pour la déconexion")
   req.session.userId = null;
   res.status(200).send("Logout successful");
