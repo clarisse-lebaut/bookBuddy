@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -6,6 +7,7 @@ const port = 3000;
 
 mongoose.connect(`mongodb://localhost:27017/BookBuddy`);
 
+app.use(cors());
 app.use(express.json());
 
 const db = mongoose.connection;
