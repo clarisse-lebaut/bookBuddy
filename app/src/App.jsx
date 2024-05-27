@@ -1,16 +1,14 @@
-import React from "react";
-import { useState } from "react";
-import "./App.css";
-import "../components/loginForm.css"
-// import HelloMessage from "../components/logForm";
-import LoginForm from "../components/loginForm";
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <div>
-      {/* <HelloMessage name="Abby" /> */}
-      <LoginForm />
-    </div>
+    <>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </>
   );
 }
 
