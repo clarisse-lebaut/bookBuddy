@@ -100,7 +100,7 @@ router.get("/protected", isAuthenticated, (req, res) => {
   res.send("Welcome to the protected area");
 });
 
-router.post("user/logout", (req, res) => {
+router.post("/logout", (req, res) => {
   // res.send("user - pour la déconexion")
   req.session.userId = null;
   res.status(200).send("Logout successful");
