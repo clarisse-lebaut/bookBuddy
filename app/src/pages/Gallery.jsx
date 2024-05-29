@@ -1,7 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
 
-export default function Gallery() {
+export default function Gallery({ user }) {
+  if (user === null || user === '') {
+    return <Navigate to='/' />;
+  }
+
+  const style = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+    gap: '1rem',
+  };
+
   const [books, setBooks] = useState([]);
 
   const fetchBooks = async () => {
@@ -23,31 +34,30 @@ export default function Gallery() {
   };
 
   useEffect(() => {
-    fetchBooks();
+    if (books.length === 0) {
+      fetchBooks();
+    }
   }, []);
 
   return (
     <>
-      <Table>
-        <thead>
-          <tr>
-            <th className='bg-danger'>Titre</th>
-            <th>Auteur</th>
-            <th>Nombre de page</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Container>
+        <div style={style} className='my-4'>
           {books.map((book, i) => {
             return (
-              <tr key={i}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.pages}</td>
-              </tr>
+              <Card key={i}>
+                <Card.Img variant='top' src={book.image} style={{ height: '400px' }} />
+                <Card.Body>
+                  <Card.Title>{book.title}</Card.Title>
+                  <Card.Text>{book.author}</Card.Text>
+                  <Button variant='primary'>Consulter</Button>
+                  <Button variant='primary'>Ajouter aux favoris</Button>
+                </Card.Body>
+              </Card>
             );
           })}
-        </tbody>
-      </Table>
+        </div>
+      </Container>
     </>
   );
 }
