@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
 
 export default function Favorites({ user }) {
-  if (user === null || user === '') {
+  if (!user) {
     return <Navigate to='/' />;
   }
 
@@ -43,7 +43,15 @@ export default function Favorites({ user }) {
     <Container>
       <div style={style} className='my-4'>
         {favorites.map((book, i) => {
-          return <AppCard key={i} data={book} />;
+          return (
+            <AppCard
+              key={i}
+              data={book}
+              setUser={setUser}
+              favorites={favorites}
+              setFavorites={setFavorites}
+            />
+          );
         })}
       </div>
     </Container>

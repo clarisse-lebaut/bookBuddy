@@ -11,7 +11,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 export default function App() {
   // Puts user's id here
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function App() {
         <Route path='/' element={<Home />} />
         <Route path='/gallery' element={<Gallery user={user} />} />
         <Route path='/collections' element={<Collections user={user} />} />
-        <Route path='/favorites' element={<Favorites user={user} />} />
+        <Route path='/favorites' element={<Favorites user={user} setUser={setUser} />} />
       </Routes>
     </>
   );

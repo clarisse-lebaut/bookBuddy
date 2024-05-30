@@ -3,7 +3,7 @@ import { Button, Card, Container } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
 
 export default function Gallery({ user }) {
-  if (user === null || user === '') {
+  if (!user) {
     return <Navigate to='/' />;
   }
 
