@@ -34,10 +34,10 @@ export default function LogIn() {
       .then((response) => response.text())
       .then((data) => {
         if (data === "Login successful") {
-          // La connexion a réussi, vous pouvez rediriger l'utilisateur vers une autre page, par exemple
+          // La connexion a réussi, redirection de l'utilisateur vers une autre page
           window.location.href = "/";
         } else {
-          // La connexion a échoué, vous pouvez afficher un message d'erreur
+          // La connexion a échoué
           setErrorMessage(data.message);
         }
       })

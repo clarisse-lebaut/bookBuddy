@@ -24,7 +24,7 @@ export default function LogUp() {
     e.preventDefault();
 
     fetch("http://localhost:3000/addUser", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 /* --- USERS --- */
@@ -19,7 +20,7 @@ router.use(
   })
 );
 
-router.get('/getAll', async (req, res) => {
+router.get("/getAll", async (req, res) => {
   res.send("user - récupérer tous les utilisateurs");
 });
 
@@ -27,7 +28,8 @@ router.post("/addUser", async (req, res) => {
   // res.send("user - ajouter un utilisateur");
   const { username, password } = req.body;
   try {
-    const newUser = new User({ username, password });
+    const hashedPassword = await bcrypt.hash(password, 10); // Ajouter cette ligne
+    const newUser = new User({ username, password: hashedPassword }); // Modifier cette ligne
     await newUser.save();
     res.status(201).send("User created");
   } catch (error) {
@@ -59,8 +61,11 @@ router.put("/user/:id", async (req, res) => {
       return res.status(404).send("Utilisateur introuvable");
     }
 
+    // Hashage du nouveau mot de passe
+    const hashedPassword = await bcrypt.hash(newPassword, 10); // Ajouter cette ligne
+
     // Mettre à jour le mot de passe de l'utilisateur
-    user.password = newPassword;
+    user.password = hashedPassword; // Modifier cette ligne
     await user.save();
     res.json("Mot de passe mis à jour avec succès");
   } catch (error) {
@@ -73,8 +78,9 @@ router.post("/login", async (req, res) => {
   // res.send("user - pour se connecter");
   const { username, password } = req.body;
   try {
-    const user = await User.findOne({ username, password });
-    if (user) {
+    const user = await User.findOne({ username });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      // Modifier cette ligne
       // Stocker l'ID d'utilisateur dans la session
       req.session.userId = user._id;
       res.status(200).send("Login successful");
