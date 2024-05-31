@@ -65,7 +65,7 @@ router.put("/user/:id", async (req, res) => {
     const hashedPassword = await bcrypt.hash(newPassword, 10); // Ajouter cette ligne
 
     // Mettre à jour le mot de passe de l'utilisateur
-    user.password = hashedPassword; // Modifier cette ligne
+    user.password = hashedPassword;
     await user.save();
     res.json("Mot de passe mis à jour avec succès");
   } catch (error) {
@@ -80,7 +80,6 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (user && (await bcrypt.compare(password, user.password))) {
-      // Modifier cette ligne
       // Stocker l'ID d'utilisateur dans la session
       req.session.userId = user._id;
       res.status(200).send("Login successful");
