@@ -45,7 +45,7 @@ export default function LogIn() {
   };
 
   return (
-    <>
+    <div id="body-style">
       {errorMessage && (
         <div className="alert alert-danger" role="alert">
           {errorMessage}
@@ -84,6 +84,6 @@ export default function LogIn() {
         <p> Pas encore inscrit ?</p>
         <Link to="/signUp">Créez vous un compte !</Link>
       </Form>
-    </>
+    </div>
   );
 }

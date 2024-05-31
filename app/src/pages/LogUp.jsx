@@ -11,8 +11,8 @@ export default function LogUp() {
   });
 
   const [response, setResponse] = useState(null);
-
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorElement, setErrorElement] = useState(null);
 
   const handleChange = (e) => {
     setForm({
@@ -39,18 +39,18 @@ export default function LogUp() {
         } else {
           // La connexion a échoué, afficher un message d'erreur
           setErrorMessage(data.message);
+          setErrorElement(
+            <p style={{ color: "red", fontSize: "20px" }}>
+              {"Nom d'utilisateur déjà pris. Veuillez en choisir un autre."}
+            </p>
+          );
         }
       })
       .catch((error) => console.error("Error:", error));
   };
 
   return (
-    <>
-      {errorMessage && (
-        <div className="alert alert-danger" role="alert">
-          {errorMessage}
-        </div>
-      )}
+    <div id="body-style">
       <h1>CREER UN COMPTE</h1>
       <Form className="d-flex flex-column justify-content-center">
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -64,9 +64,9 @@ export default function LogUp() {
             name="username"
             onChange={handleChange}
           />
+          {errorElement}
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>
             <p>Password</p>
@@ -82,9 +82,9 @@ export default function LogUp() {
         <Button className="button-style" type="submit" onClick={handleSubmit}>
           <p>Submit</p>
         </Button>
-        <p> Déjà inscrit ?</p>
+        <p>Déjà inscrit ?</p>
         <Link to="/signIn">Connectez-vous!</Link>
       </Form>
-    </>
+    </div>
   );
 }
