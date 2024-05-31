@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
+import BookComponent from '../components/BookComponent';
 
-export default function Favorites({ user }) {
-  if (!user) {
+export default function Favorites({ userId, collections, favorites }) {
+  if (!userId && userId === '') {
     return <Navigate to='/' />;
   }
 
@@ -13,46 +13,17 @@ export default function Favorites({ user }) {
     gap: '1rem',
   };
 
-  const [favorites, setFavorites] = useState([]);
-
-  const fetchFavorites = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/favorites/${user}`, {
-        method: 'GET',
-        mode: 'cors',
-      });
-
-      if (!response.ok) {
-        throw new Error('Not ok');
-      }
-
-      let favorites = await response.json();
-      setFavorites(favorites);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    if (favorites.length === 0) {
-      fetchFavorites();
-    }
-  }, []);
-
   return (
     <Container>
       <div style={style} className='my-4'>
-        {favorites.map((book, i) => {
-          return (
-            <AppCard
-              key={i}
-              data={book}
-              setUser={setUser}
-              favorites={favorites}
-              setFavorites={setFavorites}
-            />
-          );
-        })}
+        {favorites.map((book, i) => (
+          <BookComponent
+            key={i}
+            data={book}
+            isInCollections={collections.some((b) => b._id === book._id)}
+            isInFavorites={true}
+          />
+        ))}
       </div>
     </Container>
   );

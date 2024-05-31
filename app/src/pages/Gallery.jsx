@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
+import BookComponent from '../components/BookComponent';
 
-export default function Gallery({ user }) {
-  if (!user) {
+export default function Gallery({ userId, books, collections, favorites }) {
+  if (!userId && userId === '') {
     return <Navigate to='/' />;
   }
 
@@ -13,49 +13,18 @@ export default function Gallery({ user }) {
     gap: '1rem',
   };
 
-  const [books, setBooks] = useState([]);
-
-  const fetchBooks = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/books', {
-        method: 'GET',
-        mode: 'cors',
-      });
-
-      if (!response.ok) {
-        throw new Error('Not ok');
-      }
-
-      const books = await response.json();
-      setBooks(books.results);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    if (books.length === 0) {
-      fetchBooks();
-    }
-  }, []);
-
   return (
     <>
       <Container>
         <div style={style} className='my-4'>
-          {books.map((book, i) => {
-            return (
-              <Card key={i}>
-                <Card.Img variant='top' src={book.image} style={{ height: '400px' }} />
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <Card.Text>{book.author}</Card.Text>
-                  <Button variant='primary'>Consulter</Button>
-                  <Button variant='primary'>Ajouter aux favoris</Button>
-                </Card.Body>
-              </Card>
-            );
-          })}
+          {books.map((book, i) => (
+            <BookComponent
+              key={i}
+              data={book}
+              isInCollections={collections.some((b) => b._id === book._id)}
+              isInFavorites={favorites.some((b) => b._id === book._id)}
+            />
+          ))}
         </div>
       </Container>
     </>

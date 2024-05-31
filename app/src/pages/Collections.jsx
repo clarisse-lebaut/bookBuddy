@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
+import BookComponent from '../components/BookComponent';
 
-export default function Collections({ user }) {
-  if (!user) {
+export default function Collections({ userId, collections, favorites }) {
+  if (!userId && userId === '') {
     return <Navigate to='/' />;
   }
 
@@ -13,48 +13,17 @@ export default function Collections({ user }) {
     gap: '1rem',
   };
 
-  const [collections, setCollections] = useState([]);
-
-  const fetchCollections = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/collection/${user}`, {
-        method: 'GET',
-        mode: 'cors',
-      });
-
-      if (!response.ok) {
-        throw new Error('Not ok');
-      }
-
-      let collections = await response.json();
-      setCollections(collections);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    if (collections.length === 0) {
-      fetchCollections();
-    }
-  }, []);
-
   return (
     <Container>
       <div style={style} className='my-4'>
-        {collections.map((book, i) => {
-          return (
-            <Card key={i}>
-              <Card.Img variant='top' src={book.image} style={{ height: '400px' }} />
-              <Card.Body>
-                <Card.Title>{book.title}</Card.Title>
-                <Card.Text>{book.author}</Card.Text>
-                <Button variant='primary'>Consulter</Button>
-                <Button variant='primary'>Ajouter aux favoris</Button>
-              </Card.Body>
-            </Card>
-          );
-        })}
+        {collections.map((book, i) => (
+          <BookComponent
+            key={i}
+            data={book}
+            isInCollections={true}
+            isInFavorites={favorites.some((b) => b._id === book._id)}
+          />
+        ))}
       </div>
     </Container>
   );
