@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import "../assets/styles/logStyle.css";
 
 export default function LogUp() {
   const [form, setForm] = useState({
@@ -32,11 +33,11 @@ export default function LogUp() {
     })
       .then((response) => response.text())
       .then((data) => {
-        if (data === "User create") {
-          // La connexion a réussi, vous pouvez rediriger l'utilisateur vers une autre page, par exemple
+        if (data === "User created") {
+          // Création réussi, redirection de l'utilisateur sur la page de connexion
           window.location.href = "/";
         } else {
-          // La connexion a échoué, vous pouvez afficher un message d'erreur
+          // La connexion a échoué, afficher un message d'erreur
           setErrorMessage(data.message);
         }
       })

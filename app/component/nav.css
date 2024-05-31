@@ -1,0 +1,27 @@
+.nav-style {
+  display: flex;
+  background-color: rgba(0, 0, 255, 0.636);
+
+  gap: 50px;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-style:hover {
+  background-color: blue;
+}
+
+.li-style {
+  font-size: 40px;
+  list-style: none;
+  text-align: center;
+}
+
+.a-style{
+    color: black;
+}
+
+.a-style:hover{
+    color: white;
+}

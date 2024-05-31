@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import "./logStyle.css";
+import "../assets/styles/logStyle.css";
 
 export default function LogIn() {
   const [form, setForm] = useState({

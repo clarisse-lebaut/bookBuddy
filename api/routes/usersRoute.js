@@ -28,8 +28,8 @@ router.post("/addUser", async (req, res) => {
   // res.send("user - ajouter un utilisateur");
   const { username, password } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(password, 10); // Ajouter cette ligne
-    const newUser = new User({ username, password: hashedPassword }); // Modifier cette ligne
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
     res.status(201).send("User created");
   } catch (error) {
