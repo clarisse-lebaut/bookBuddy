@@ -8,10 +8,9 @@ import Favorites from './pages/Favorites';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import BookComponent from './components/BookComponent';
 
 export default function App() {
-  const [userId, setUserId] = useState('6652210aee93eb07369be9fe');
+  const [userId, _] = useState('6652210aee93eb07369be9fe');
   const [books, setBooks] = useState([]);
   const [collections, setCollections] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -40,7 +39,7 @@ export default function App() {
       });
 
       if (!response.ok) {
-        throw new Error('Not ok');
+        throw new Error("Impossible to get user's collection!");
       }
 
       let data = await response.json();
@@ -58,7 +57,7 @@ export default function App() {
       });
 
       if (!response.ok) {
-        throw new Error('Not ok');
+        throw new Error("Impossible to get user's favorites!");
       }
 
       let data = await response.json();
@@ -79,7 +78,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route
-          path='/books'
+          path='/gallery'
           element={
             <Gallery
               userId={userId}
