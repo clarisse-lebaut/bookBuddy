@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../assets/styles/logStyle.css";
 
 export default function LogIn() {
@@ -24,7 +25,7 @@ export default function LogIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +36,7 @@ export default function LogIn() {
       .then((data) => {
         if (data === "Login successful") {
           // La connexion a réussi, redirection de l'utilisateur vers une autre page
-          window.location.href = "/";
+          window.location.href = `/home/:userID`;
         } else {
           // La connexion a échoué
           setErrorMessage(data.message);

@@ -7,7 +7,7 @@ export default function NavBar() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/logout", {
+    fetch("http://localhost:3000/user/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

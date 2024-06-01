@@ -1,30 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 /* --- USERS --- */
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
-  password: String,
+  password: { type: String, required: true },
 });
 
 const User = mongoose.model("users", userSchema);
 
-router.use(
-  session({
-    secret: "my-secret-key",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
-router.get("/getAll", async (req, res) => {
-  res.send("user - récupérer tous les utilisateurs");
-});
-
-router.post("/addUser", async (req, res) => {
+router.post("/user/addUser", async (req, res) => {
   // res.send("user - ajouter un utilisateur");
   const { username, password } = req.body;
   try {
@@ -39,8 +26,30 @@ router.post("/addUser", async (req, res) => {
 
 router.get("/user/:id", async (req, res) => {
   // res.send("user - récupérer l'ID");
+  // const userId = req.params.id;
+  // res.send("User ID: " + userId);
   const userId = req.params.id;
-  res.send("User ID: " + userId);
+  const connectedUserId = req.session.userId;
+
+  console.log("userId:", userId);
+  console.log("connectedUserId:", connectedUserId);
+  console.log("userId.length:", userId.length);
+  console.log("connectedUserId.length:", connectedUserId.length);
+
+  if (userId === connectedUserId) {
+    try {
+      const user = await User.findById(userId);
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).send("User not found");
+      }
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  } else {
+    res.status(403).send("Forbidden");
+  }
 });
 
 router.put("/user/:id", async (req, res) => {
@@ -74,14 +83,15 @@ router.put("/user/:id", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/user/login", async (req, res) => {
   // res.send("user - pour se connecter");
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && bcrypt.compare(password, user.password)) {
       // Stocker l'ID d'utilisateur dans la session
       req.session.userId = user._id;
+      console.log("User ID stored in session:", req.session.userId);
       res.status(200).send("Login successful");
     } else {
       res.status(401).send("Invalid credentials");
@@ -101,13 +111,14 @@ function isAuthenticated(req, res, next) {
 }
 
 // API pour les utilisateurs connectés uniquement
-router.get("/protected", isAuthenticated, (req, res) => {
+router.get("/user/protected", isAuthenticated, (req, res) => {
   res.send("Welcome to the protected area");
 });
 
-router.post("/logout", (req, res) => {
+router.post("/user/logout", (req, res) => {
   // res.send("user - pour la déconexion")
   req.session.userId = null;
+  console.log("déconnecter");
   res.status(200).send("Logout successful");
 });
 

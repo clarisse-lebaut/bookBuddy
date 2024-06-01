@@ -1,0 +1,19 @@
+#body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 100vh;
+}
+
+#box {
+  margin: 20px;
+}
+
+#button {
+    width: 200px;
+    height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
