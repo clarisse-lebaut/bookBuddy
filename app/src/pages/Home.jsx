@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 // import components
 import NavBar from "../components/nav.jsx";
+import AddBookButton from "../components/addBookButton.jsx";
+import BookComponent from "../components/BookComponent.jsx";
 
 export default function Home() {
   const { id } = useParams();
@@ -19,7 +21,8 @@ export default function Home() {
     <>
       <NavBar></NavBar>
       <h1>HOME</h1>
-      <p>je n'arrive pas à fetch les collections...</p>
+      <AddBookButton/>
+      <BookComponent/>
     </>
   );
 }

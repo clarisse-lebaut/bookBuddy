@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importez useNavigate
+import { useNavigate } from "react-router-dom";
 import "../assets/styles/logStyle.css";
 
 export default function LogIn() {
@@ -65,7 +65,9 @@ export default function LogIn() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button className="button-style" type="submit">Se connecter</Button>
+        <Button className="button-style" type="submit">
+          Se connecter
+        </Button>
         <p>Pas encore inscrit ?</p>
         <Link to="/signUp">Créez vous un compte !</Link>
       </Form>

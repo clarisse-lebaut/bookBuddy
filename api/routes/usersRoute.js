@@ -7,6 +7,9 @@ const router = express.Router();
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
+  collection: { type: Array},
+  favorite: { type: Array},
+  rewards: { type: Object },
 });
 
 const User = mongoose.model("users", userSchema);

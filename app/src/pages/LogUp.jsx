@@ -1,10 +1,13 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "../assets/styles/logStyle.css";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import "../assets/styles/logStyle.css";
 
 export default function LogUp() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -13,6 +16,20 @@ export default function LogUp() {
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorElement, setErrorElement] = useState(null);
+
+  const { userID } = useParams();
+  const [userData, setUserData] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    // Vérifier si l'utilisateur est connecté
+    const storedUserId = sessionStorage.getItem("userId");
+    if (storedUserId) {
+      setIsAuthenticated(true);
+      setUserId(storedUserId);
+    }
+  }, []);
 
   const handleChange = (e) => {
     setForm({
@@ -34,48 +51,12 @@ export default function LogUp() {
       .then((response) => response.text())
       .then((data) => {
         if (data === "User created") {
-          // Création réussi, redirection de l'utilisateur sur la page de connexion
-          const { userID } = useParams();
-          const [userData, setUserData] = useState(null);
-
-          useEffect(() => {
-            // Effectuer une requête fetch pour récupérer les données de l'utilisateur à partir du serveur
-            fetch(`http://localhost:3000/user/${userID}`, {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(),
-            })
-              .then((response) => response.text())
-              .then((data) => {
-                setUserData(data);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          }, [userID]);
-
-          const [isAuthenticated, setIsAuthenticated] = useState(false);
-          const [userId, setUserId] = useState(null);
-
-          useEffect(() => {
-            // Vérifier si l'utilisateur est connecté
-            const storedUserId = sessionStorage.getItem("userId");
-            if (storedUserId) {
-              setIsAuthenticated(true);
-              setUserId(storedUserId);
-            }
-          }, []);
-
-          window.location.href = "/home/:id";
+          navigate(`/home/${data.userId}`); // Utilisez navigate pour rediriger
         } else {
           // La connexion a échoué, afficher un message d'erreur
           setErrorMessage(data.message);
           setErrorElement(
-            <p style={{ color: "red", fontSize: "20px" }}>
-              {"Nom d'utilisateur déjà pris."}
-            </p>
+            <p style={{ color: "red", fontSize: "20px" }}>{"Nom d'utilisateur déjà pris."}</p>
           );
         }
       })
