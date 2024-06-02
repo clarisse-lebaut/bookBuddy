@@ -24,7 +24,7 @@ router.post("/user/addUser", async (req, res) => {
   }
 });
 
-router.get("/user/:id", async (req, res) => {
+router.get(`user/:id`, async (req, res) => {
   // res.send("user - récupérer l'ID");
   // const userId = req.params.id;
   // res.send("User ID: " + userId);
@@ -33,8 +33,6 @@ router.get("/user/:id", async (req, res) => {
 
   console.log("userId:", userId);
   console.log("connectedUserId:", connectedUserId);
-  console.log("userId.length:", userId.length);
-  console.log("connectedUserId.length:", connectedUserId.length);
 
   if (userId === connectedUserId) {
     try {
@@ -54,7 +52,7 @@ router.get("/user/:id", async (req, res) => {
 
 router.put("/user/:id", async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params._id;
     const newPassword = req.body.newPassword;
 
     // Vérifiez que le nouveau mot de passe est fourni
@@ -84,20 +82,17 @@ router.put("/user/:id", async (req, res) => {
 });
 
 router.post("/user/login", async (req, res) => {
-  // res.send("user - pour se connecter");
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-    if (user && bcrypt.compare(password, user.password)) {
-      // Stocker l'ID d'utilisateur dans la session
+    if (user && (await bcrypt.compare(password, user.password))) {
       req.session.userId = user._id;
-      console.log("User ID stored in session:", req.session.userId);
-      res.status(200).send("Login successful");
+      res.status(200).json({ message: "Login successful", userId: user._id });
     } else {
-      res.status(401).send("Invalid credentials");
+      res.status(401).json({ message: "Invalid credentials" });
     }
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 

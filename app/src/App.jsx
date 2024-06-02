@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Title from "./pages/Welcome";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
@@ -18,9 +18,9 @@ export default function App() {
         {/* route pour se crée un compte */}
         <Route path="/signUp" element={<LogUp />} />
         {/* route pour la page d'acceuil */}
-        <Route path="/home/:userID" element={<Home />} />
+        <Route path="/home/:id" element={<Home />} />
         {/* route pour le profil */}
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profil/:id" element={<Profil />} />
       </Routes>
     </>
   );

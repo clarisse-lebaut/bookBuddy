@@ -68,7 +68,7 @@ export default function LogUp() {
             }
           }, []);
 
-          window.location.href = "/home/:userID";
+          window.location.href = "/home/:id";
         } else {
           // La connexion a échoué, afficher un message d'erreur
           setErrorMessage(data.message);
