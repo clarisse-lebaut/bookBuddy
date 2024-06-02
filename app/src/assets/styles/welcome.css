@@ -5,6 +5,7 @@
   align-items: center;
   gap: 30px;
   height: 100vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #box {
@@ -17,4 +18,14 @@
   margin-left: 20px;
   margin-right: 20px;
   background-color: aliceblue;
+  box-shadow: 5px 10px 10px 1px rgba(128, 128, 128, 0.252);
+}
+
+#button:hover{
+    box-shadow: 20px 10px 10px 1px rgba(128, 128, 128, 0.252);
+}
+
+#link-style{
+  list-style: none;
+  text-decoration: none;
 }

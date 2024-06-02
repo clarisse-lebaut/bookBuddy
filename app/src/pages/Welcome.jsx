@@ -11,10 +11,14 @@ export default function Title() {
         </div>
         <div id="box">
           <Button id="button">
-            <Link to="/signIn">Se connecter</Link>
+            <Link id="link-style" to="/signIn">
+              Se connecter
+            </Link>
           </Button>
           <Button id="button">
-            <Link to="/signUp">Crée un compte</Link>
+            <Link id="link-style" to="/signUp">
+              Crée un compte
+            </Link>
           </Button>
         </div>
       </div>

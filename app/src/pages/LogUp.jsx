@@ -74,7 +74,7 @@ export default function LogUp() {
           setErrorMessage(data.message);
           setErrorElement(
             <p style={{ color: "red", fontSize: "20px" }}>
-              {"Nom d'utilisateur déjà pris. Veuillez en choisir un autre."}
+              {"Nom d'utilisateur déjà pris."}
             </p>
           );
         }
@@ -85,25 +85,19 @@ export default function LogUp() {
   return (
     <div id="body-style">
       <h1>CREER UN COMPTE</h1>
-      <Form className="d-flex flex-column justify-content-center">
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>
-            <p>User Name</p>
-          </Form.Label>
+      <Form>
+        <Form.Group controlId="formBasicEmail">
           <Form.Control
             className="input-style"
             type="text"
-            placeholder="Enter userName"
+            placeholder="Username"
             name="username"
             onChange={handleChange}
           />
           {errorElement}
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>
-            <p>Password</p>
-          </Form.Label>
+        <Form.Group controlId="formBasicPassword">
           <Form.Control
             className="input-style"
             type="password"
@@ -113,7 +107,7 @@ export default function LogUp() {
           />
         </Form.Group>
         <Button className="button-style" type="submit" onClick={handleSubmit}>
-          <p>Submit</p>
+          Créer un compte
         </Button>
         <p>Déjà inscrit ?</p>
         <Link to="/signIn">Connectez-vous!</Link>

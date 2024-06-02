@@ -44,19 +44,11 @@ export default function LogIn() {
 
   return (
     <div id="body-style">
-      {errorMessage && (
-        <div className="alert alert-danger" role="alert">
-          {errorMessage}
-        </div>
-      )}
       <h1>SE CONNECTER</h1>
-      <Form className="d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>
-            <p>User Name</p>
-          </Form.Label>
           <Form.Control
-            className="input-style shadow-lg"
+            className="input-style"
             type="text"
             placeholder="Username"
             name="username"
@@ -64,10 +56,7 @@ export default function LogIn() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>
-            <p>Password</p>
-          </Form.Label>
+        <Form.Group controlId="formBasicPassword">
           <Form.Control
             className="input-style"
             type="password"
@@ -76,10 +65,8 @@ export default function LogIn() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button className="button-style" type="submit">
-          <p>Submit</p>
-        </Button>
-        <p> Pas encore inscrit ?</p>
+        <Button className="button-style" type="submit">Se connecter</Button>
+        <p>Pas encore inscrit ?</p>
         <Link to="/signUp">Créez vous un compte !</Link>
       </Form>
     </div>

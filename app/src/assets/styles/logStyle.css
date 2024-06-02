@@ -1,10 +1,11 @@
-#body-style{
+#body-style {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .input-style {
@@ -13,11 +14,15 @@
   font-size: 25px;
   text-align: center;
   border-radius: 10px;
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 10px 10px 1px rgba(128, 128, 128, 0.252);
 }
 
 .button-style {
   width: 250px;
   background-color: rgb(79, 79, 245);
-  margin: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 10px 1px rgba(128, 128, 128, 0.252);
 }

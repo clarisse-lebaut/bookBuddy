@@ -1,11 +1,11 @@
 .nav-style {
   display: flex;
   background-color: rgba(0, 0, 255, 0.636);
-
   gap: 50px;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  box-shadow: 0 10px 20px 1px rgba(128, 128, 128, 0.71);
 }
 
 .nav-style:hover {
@@ -18,10 +18,11 @@
   text-align: center;
 }
 
-.a-style{
-    color: black;
+.a-style {
+  color: black;
+  text-decoration: none;
 }
 
-.a-style:hover{
-    color: white;
+.a-style:hover {
+  color: white;
 }
