@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 // import components
 import NavBar from "../components/nav.jsx";
-import AddBookButton from "../components/addBookButton.jsx";
 import BookComponent from "../components/BookComponent.jsx";
 
 export default function Home() {
@@ -21,8 +20,6 @@ export default function Home() {
     <>
       <NavBar></NavBar>
       <h1>HOME</h1>
-      <AddBookButton/>
-      <BookComponent/>
     </>
   );
 }

@@ -96,7 +96,7 @@ export default function App() {
         {/* route page profil */}
         <Route path="/profil/:id" element={<Profil />} />
         <Route
-          path="/gallery/:id"
+          path="/gallery"
           element={
             <Gallery
               userId={userId}
@@ -107,11 +107,11 @@ export default function App() {
           }
         />
         <Route
-          path="/collections/:id"
+          path="/collections"
           element={<Collections userId={userId} collections={collections} favorites={favorites} />}
         />
         <Route
-          path="/favorites/:id"
+          path="/favorites"
           element={<Favorites userId={userId} collections={collections} favorites={favorites} />}
         />
       </Routes>
