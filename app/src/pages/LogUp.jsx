@@ -24,7 +24,7 @@ export default function LogUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/addUser", {
+    fetch("http://localhost:3000/user/addUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,40 @@ export default function LogUp() {
       .then((data) => {
         if (data === "User created") {
           // Création réussi, redirection de l'utilisateur sur la page de connexion
-          window.location.href = "/";
+          const { userID } = useParams();
+          const [userData, setUserData] = useState(null);
+
+          useEffect(() => {
+            // Effectuer une requête fetch pour récupérer les données de l'utilisateur à partir du serveur
+            fetch(`http://localhost:3000/user/${userID}`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(),
+            })
+              .then((response) => response.text())
+              .then((data) => {
+                setUserData(data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          }, [userID]);
+
+          const [isAuthenticated, setIsAuthenticated] = useState(false);
+          const [userId, setUserId] = useState(null);
+
+          useEffect(() => {
+            // Vérifier si l'utilisateur est connecté
+            const storedUserId = sessionStorage.getItem("userId");
+            if (storedUserId) {
+              setIsAuthenticated(true);
+              setUserId(storedUserId);
+            }
+          }, []);
+
+          window.location.href = "/home/:id";
         } else {
           // La connexion a échoué, afficher un message d'erreur
           setErrorMessage(data.message);

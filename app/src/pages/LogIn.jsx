@@ -1,7 +1,8 @@
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importez useNavigate
 import "../assets/styles/logStyle.css";
 
 export default function LogIn() {
@@ -10,9 +11,8 @@ export default function LogIn() {
     password: "",
   });
 
-  const [response, setResponse] = useState(null);
-
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // Utilisez useNavigate pour la redirection
 
   const handleChange = (e) => {
     setForm({
@@ -24,20 +24,18 @@ export default function LogIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
-        if (data === "Login successful") {
-          // La connexion a réussi, redirection de l'utilisateur vers une autre page
-          window.location.href = "/";
+        if (data.message === "Login successful") {
+          navigate(`/home/${data.userId}`); // Utilisez navigate pour rediriger
         } else {
-          // La connexion a échoué
           setErrorMessage(data.message);
         }
       })
@@ -52,7 +50,7 @@ export default function LogIn() {
         </div>
       )}
       <h1>SE CONNECTER</h1>
-      <Form className="d-flex flex-column justify-content-center">
+      <Form className="d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>
             <p>User Name</p>
@@ -78,7 +76,7 @@ export default function LogIn() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button className="button-style" type="submit" onClick={handleSubmit}>
+        <Button className="button-style" type="submit">
           <p>Submit</p>
         </Button>
         <p> Pas encore inscrit ?</p>

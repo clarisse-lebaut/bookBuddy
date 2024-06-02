@@ -10,6 +10,7 @@ import Favorites from "./pages/Favorites";
 import LogIn from "./pages/LogIn";
 import LogUp from "./pages/LogUp";
 import Profil from "./pages/Profil";
+import Favorite from "./pages/Favorite";
 
 // import des styles
 import "./App.css";

@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'; // Ajouter cette ligne
 import './Profil.css'; // Importer le fichier CSS
 
 export default function Profil() {
+  const { id } = useParams();
+  const [password, setPassword] = useState("");
   const [password, setPassword] = useState('');
 
   // Récupérer l'ID de l'utilisateur dans l'URL en utilisant le hook useParams
@@ -13,19 +15,6 @@ export default function Profil() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Récupérer l'ID de l'utilisateur dans le state ou dans le contexte
-    const userId = id; // Utiliser l'ID récupéré dans l'URL
-
-    // Vérifier que le nouveau mot de passe a été saisi
-    if (!password) {
-      // Afficher un message d'erreur
-      return;
-    }
-
-    // Construire l'URL de la requête PUT en utilisant l'ID de l'utilisateur
-    const url = `http://localhost:3000/user/${userId}`;
-
-    // Envoyer la requête PUT à l'API
     const response = await fetch(url, {
       method: 'PUT',
       headers: {

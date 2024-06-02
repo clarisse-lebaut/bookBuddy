@@ -4,7 +4,7 @@ import NavBar from "../../component/nav";
 import DisconnectButton from "../../component/disconnectButton";
 import { useParams } from "react-router-dom";
 
-export default function Home() {
+export default function Favorite() {
   const { id } = useParams();
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ export default function Home() {
   return (
     <>
       <NavBar></NavBar>
-      <h1>HOME</h1>
-      <p>maintenant va falloir que tu merges pour que tout marche...</p>
+      <h1>FAVORIS</h1>
+      <p>pages de favoris</p>
     </>
   );
 }
