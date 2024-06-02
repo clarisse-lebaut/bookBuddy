@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../assets/styles/logStyle.css";
 
-export default function LogIn() {
+export default function LogIn({ setUserId, setBooks, setCollections, setFavorites }) {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -34,12 +34,68 @@ export default function LogIn() {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Login successful") {
-          navigate(`/home/${data.userId}`); // Utilisez navigate pour rediriger
+          setUserId(() => data.userId);
+          fetchBooks();
+          fetchCollections(data.userId);
+          fetchFavorites(data.userId);
+          navigate(`/home`); // Utilisez navigate pour rediriger
         } else {
           setErrorMessage(data.message);
         }
       })
       .catch((error) => console.error("Error:", error));
+  };
+
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/books");
+
+      if (!response.ok) {
+        throw new Error("Impossible to get books!");
+      }
+
+      let data = await response.json();
+      let books = data.results;
+      setBooks(() => books);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const fetchCollections = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/collection/${userId}`, {
+        method: "GET",
+        mode: "cors",
+      });
+
+      if (!response.ok) {
+        throw new Error("Impossible to get user's collection!");
+      }
+
+      let data = await response.json();
+      setCollections(() => data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const fetchFavorites = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/favorites/${userId}`, {
+        method: "GET",
+        mode: "cors",
+      });
+
+      if (!response.ok) {
+        throw new Error("Impossible to get user's favorites!");
+      }
+
+      let data = await response.json();
+      setFavorites(() => data);
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (

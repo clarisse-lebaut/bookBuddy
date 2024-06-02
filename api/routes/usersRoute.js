@@ -2,18 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
+const User = require("../models/user");
 
 /* --- USERS --- */
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  password: { type: String, required: true },
-  collection: { type: Array},
-  favorite: { type: Array},
-  rewards: { type: Object },
-});
-
-const User = mongoose.model("users", userSchema);
-
 router.post("/user/addUser", async (req, res) => {
   // res.send("user - ajouter un utilisateur");
   const { username, password } = req.body;

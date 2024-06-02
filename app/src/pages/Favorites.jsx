@@ -4,6 +4,7 @@ import BookComponent from "../components/BookComponent";
 import NavBar from "../components/nav.jsx";
 
 export default function Favorites({ userId, collections, favorites }) {
+  console.log(favorites);
   if (!userId && userId === "") {
     return <Navigate to="/" />;
   }

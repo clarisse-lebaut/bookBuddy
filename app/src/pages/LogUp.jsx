@@ -51,7 +51,7 @@ export default function LogUp() {
       .then((response) => response.text())
       .then((data) => {
         if (data === "User created") {
-          navigate(`/home/${data.userId}`); // Utilisez navigate pour rediriger
+          navigate(`/home`); // Utilisez navigate pour rediriger
         } else {
           // La connexion a échoué, afficher un message d'erreur
           setErrorMessage(data.message);

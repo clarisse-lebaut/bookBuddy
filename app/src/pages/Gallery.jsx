@@ -5,21 +5,13 @@ import NavBar from "../components/nav.jsx";
 
 export default function Gallery({ userId, books, collections, favorites }) {
   if (!userId && userId === "") {
-    return <Navigate to="/" />;
+    return <Navigate to="/signIn" />;
   }
 
   const style = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
     gap: "1rem",
-  };
-
-  const testBook = {
-    title: "Test",
-    author: "Test",
-    categories: ["Test"],
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/f/f4/USAFA_Hosts_Elon_Musk_%28Image_1_of_17%29_%28cropped%29.jpg",
   };
 
   return (

@@ -23,27 +23,27 @@ export default function NavBar() {
     <>
       <nav className="nav-style">
         <li className="li-style">
-          <Link className="a-style" to={`/home/${userId}`}>
+          <Link className="a-style" to={`/home`}>
             Home
           </Link>
         </li>
         <li className="li-style">
-          <Link className="a-style" to={`/collections/${userId}`}>
+          <Link className="a-style" to={`/collections`}>
             Collections
           </Link>
         </li>
         <li className="li-style">
-          <Link className="a-style" to={`/gallery/${userId}`}>
+          <Link className="a-style" to={`/gallery`}>
             Gallery
           </Link>
         </li>
         <li className="li-style">
-          <Link className="a-style" to={`/favorites/${userId}`}>
+          <Link className="a-style" to={`/favorites`}>
             Favoris
           </Link>
         </li>
         <li className="li-style">
-          <Link className="a-style" to={`/profil/${userId}`}>
+          <Link className="a-style" to={`/profil`}>
             Profil
           </Link>
         </li>
