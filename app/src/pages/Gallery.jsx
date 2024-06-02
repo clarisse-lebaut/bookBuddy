@@ -1,7 +1,10 @@
-import { Container } from "react-bootstrap";
+//import params
 import { Navigate } from "react-router-dom";
+//import component
 import BookComponent from "../components/BookComponent";
 import NavBar from "../components/nav.jsx";
+//import styles
+import { Container } from "react-bootstrap";
 
 export default function Gallery({ userId, books, collections, favorites }) {
   if (!userId && userId === "") {
@@ -18,6 +21,10 @@ export default function Gallery({ userId, books, collections, favorites }) {
     <>
       <Container>
         <NavBar />
+        <h1 className="container mt-5">LES LIVRES QUE D'AUTRES ONT LU !</h1>
+        <p className="container mt-3">
+          Un oubli ? Envie de faire au plus vite ? En manque d'inspi ? Faites votre choix !
+        </p>
         <div style={style} className="my-4">
           {books.map((book, i) => (
             <BookComponent

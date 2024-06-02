@@ -1,7 +1,11 @@
-import { Container } from "react-bootstrap";
+// import params
 import { Navigate } from "react-router-dom";
+// imports component
 import BookComponent from "../components/BookComponent";
 import NavBar from "../components/nav.jsx";
+//import styles
+import "../App.css";
+import { Container } from "react-bootstrap";
 
 export default function Collections({ userId, collections, favorites }) {
   console.log(collections);
@@ -19,6 +23,8 @@ export default function Collections({ userId, collections, favorites }) {
   return (
     <Container>
       <NavBar></NavBar>
+      <h1 className="container mt-5">VOTRE ETAGERE</h1>
+      <p className="container mt-3">Ne perdez plus le fil de vos lecture passé, en cours et futur !</p>
       <div style={style} className="my-4">
         {collections.map((book, i) => (
           <BookComponent

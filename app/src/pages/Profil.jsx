@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 // import component
 import NavBar from "../components/nav.jsx";
 //import style
+import "../App.css";
 import "../assets/styles/profil.css";
+import { Container } from "react-bootstrap";
 
 export default function Profil() {
   const { id } = useParams();
@@ -32,20 +34,23 @@ export default function Profil() {
 
   return (
     <>
-      <NavBar />
-      <h1>PROFIL</h1>
-      <div className="profile-container">
-        <div className="username">Pseudo de l'utilisateur : ""</div>
-        <form onSubmit={handleSubmit} className="password-form">
-          <input
-            type="password"
-            placeholder="Nouveau mot de passe"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <Button type="submit">Modifier le mot de passe</Button>
-        </form>
-      </div>
+      <Container>
+        <NavBar />
+        <h1 className="container mt-5">PROFIL</h1>
+        <div className="profile-container">
+          <div className="username">Pseudo de l'utilisateur : ""</div>
+          <form onSubmit={handleSubmit} className="password-form">
+            <input
+              type="password"
+              placeholder="Nouveau mot de passe"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Button type="submit">Modifier le mot de passe</Button>
+          </form>
+        </div>
+        <h1 className="container mt-5">BADGES</h1>
+      </Container>
     </>
   );
 }

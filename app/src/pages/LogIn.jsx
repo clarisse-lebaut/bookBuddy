@@ -1,9 +1,12 @@
+// import params and effects
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import styles
+import "../App.css";
+import "../assets/styles/logStyle.css";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import "../assets/styles/logStyle.css";
 
 export default function LogIn({ setUserId, setBooks, setCollections, setFavorites }) {
   const [form, setForm] = useState({

@@ -1,7 +1,10 @@
+// import params and effects
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+// import styles
+import "../App.css";
 import "../assets/styles/logStyle.css";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";

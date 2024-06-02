@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import DisconnectButton from "./disconnectButton";
 // import styll
 import "../assets/styles/nav.css";
+import { Container } from "react-bootstrap";
 
 export default function NavBar() {
   // Get ID in the URL
@@ -21,34 +22,36 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="nav-style">
-        <li className="li-style">
-          <Link className="a-style" to={`/home`}>
-            Home
-          </Link>
-        </li>
-        <li className="li-style">
-          <Link className="a-style" to={`/collections`}>
-            Collections
-          </Link>
-        </li>
-        <li className="li-style">
-          <Link className="a-style" to={`/gallery`}>
-            Gallery
-          </Link>
-        </li>
-        <li className="li-style">
-          <Link className="a-style" to={`/favorites`}>
-            Favoris
-          </Link>
-        </li>
-        <li className="li-style">
-          <Link className="a-style" to={`/profil`}>
-            Profil
-          </Link>
-        </li>
-        <DisconnectButton />
-      </nav>
+      <Container>
+        <nav className="nav-style position-sticky">
+          <li className="li-style">
+            <Link className="a-style" to={`/home`}>
+              Home
+            </Link>
+          </li>
+          <li className="li-style">
+            <Link className="a-style" to={`/collections`}>
+              Collections
+            </Link>
+          </li>
+          <li className="li-style">
+            <Link className="a-style" to={`/gallery`}>
+              Gallery
+            </Link>
+          </li>
+          <li className="li-style">
+            <Link className="a-style" to={`/favorites`}>
+              Favoris
+            </Link>
+          </li>
+          <li className="li-style">
+            <Link className="a-style" to={`/profil`}>
+              Profil
+            </Link>
+          </li>
+          <DisconnectButton />
+        </nav>
+      </Container>
     </>
   );
 }

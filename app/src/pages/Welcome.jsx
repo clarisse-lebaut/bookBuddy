@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../assets/styles/welcome.css";
+import "../App.css";
 
 export default function Title() {
   return (
