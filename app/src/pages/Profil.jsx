@@ -1,24 +1,27 @@
-import React, { useState, useContext } from 'react';
-import NavBar from '../../component/nav';
-import { Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom'; // Ajouter cette ligne
-import './Profil.css'; // Importer le fichier CSS
+import React, { useState, useContext } from "react";
+import NavBar from "../../component/nav";
+import { Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import "./Profil.css";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import NavBar from "../../component/nav";
+import { Button } from "react-bootstrap";
+import DisconnectButton from "../../component/disconnectButton";
+import { useParams } from "react-router-dom";
 
 export default function Profil() {
   const { id } = useParams();
   const [password, setPassword] = useState("");
-  const [password, setPassword] = useState('');
-
-  // Récupérer l'ID de l'utilisateur dans l'URL en utilisant le hook useParams
-  const { id } = useParams();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const response = await fetch(url, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ newPassword: password }),
     });
@@ -34,16 +37,17 @@ export default function Profil() {
   return (
     <>
       <NavBar />
-      <div className='profile-container'>
-        <div className='username'>Pseudo de l'utilisateur : ""</div>
-        <form onSubmit={handleSubmit} className='password-form'>
+      <h1>PROFIL</h1>
+      <div className="profile-container">
+        <div className="username">Pseudo de l'utilisateur : ""</div>
+        <form onSubmit={handleSubmit} className="password-form">
           <input
-            type='password'
-            placeholder='Nouveau mot de passe'
+            type="password"
+            placeholder="Nouveau mot de passe"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <Button type='submit'>Modifier le mot de passe</Button>
+          <Button type="submit">Modifier le mot de passe</Button>
         </form>
       </div>
     </>

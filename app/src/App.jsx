@@ -1,8 +1,10 @@
 // import des effets et des paramètres
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import React from "react";
 
 //import des roots
+import Title from "./pages/Welcome";
 import Home from "./pages/Home";
 import Gallery from "./pages/Gallery";
 import Collections from "./pages/Collections";
@@ -104,6 +106,7 @@ export default function App() {
           path="/favorites"
           element={<Favorites userId={userId} collections={collections} favorites={favorites} />}
         />
+        <Route path="/" element={<Title />} />
         <Route path="/signIn" element={<LogIn />} />
         <Route path="/signUp" element={<LogUp />} />
         <Route path="/profil" element={<Profil />} />
