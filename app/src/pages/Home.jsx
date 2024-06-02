@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../../component/nav";
-import DisconnectButton from "../../component/disconnectButton";
 import { useParams } from "react-router-dom";
+// import components
+import NavBar from "../components/nav.jsx";
 
 export default function Home() {
   const { id } = useParams();
@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <NavBar></NavBar>
       <h1>HOME</h1>
-      <p>maintenant va falloir que tu merges pour que tout marche...</p>
+      <p>je n'arrive pas à fetch les collections...</p>
     </>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 export default function DisconnectButton() {
-  // POUR DECONNECTER ET DETRUIRE LA SESSION
+  // disconnect and destroy the session
   const [errorMessage, setErrorMessage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();

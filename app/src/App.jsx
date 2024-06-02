@@ -12,7 +12,6 @@ import Favorites from "./pages/Favorites";
 import LogIn from "./pages/LogIn";
 import LogUp from "./pages/LogUp";
 import Profil from "./pages/Profil";
-import Favorite from "./pages/Favorite";
 
 // import des styles
 import "./App.css";
@@ -86,9 +85,18 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* route page connexion : crée ou connecter */}
+        <Route path="/" element={<Title />} />
+        {/* route pour se conneceter */}
+        <Route path="/signIn" element={<LogIn />} />
+        {/* route pour se créer un compte */}
+        <Route path="/signUp" element={<LogUp />} />
+        {/* route page home */}
+        <Route path="/home/:id" element={<Home />} />
+        {/* route page profil */}
+        <Route path="/profil/:id" element={<Profil />} />
         <Route
-          path="/gallery"
+          path="/gallery/:id"
           element={
             <Gallery
               userId={userId}
@@ -99,17 +107,13 @@ export default function App() {
           }
         />
         <Route
-          path="/collections"
+          path="/collections/:id"
           element={<Collections userId={userId} collections={collections} favorites={favorites} />}
         />
         <Route
-          path="/favorites"
+          path="/favorites/:id"
           element={<Favorites userId={userId} collections={collections} favorites={favorites} />}
         />
-        <Route path="/" element={<Title />} />
-        <Route path="/signIn" element={<LogIn />} />
-        <Route path="/signUp" element={<LogUp />} />
-        <Route path="/profil" element={<Profil />} />
       </Routes>
     </>
   );

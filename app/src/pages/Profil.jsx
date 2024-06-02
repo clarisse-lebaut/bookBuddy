@@ -1,15 +1,11 @@
-import React, { useState, useContext } from "react";
-import NavBar from "../../component/nav";
+// import params and effecrs
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import "./Profil.css";
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import NavBar from "../../component/nav";
-import { Button } from "react-bootstrap";
-import DisconnectButton from "../../component/disconnectButton";
-import { useParams } from "react-router-dom";
+// import component
+import NavBar from "../components/nav.jsx";
+//import style
+import "../assets/styles/profil.css";
 
 export default function Profil() {
   const { id } = useParams();

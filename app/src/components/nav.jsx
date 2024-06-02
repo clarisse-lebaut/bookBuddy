@@ -1,12 +1,14 @@
+// import params and effects
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import "./nav.css";
+// import components
 import DisconnectButton from "./disconnectButton";
+// import styll
+import "../assets/styles/nav.css";
 
 export default function NavBar() {
-  // Récupérer l'ID de l'utilisateur à partir de l'URL actuelle
+  // Get ID in the URL
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -26,7 +28,17 @@ export default function NavBar() {
           </Link>
         </li>
         <li className="li-style">
-          <Link className="a-style" to={`/favoris/${userId}`}>
+          <Link className="a-style" to={`/collections/${userId}`}>
+            Collections
+          </Link>
+        </li>
+        <li className="li-style">
+          <Link className="a-style" to={`/gallery/${userId}`}>
+            Gallery
+          </Link>
+        </li>
+        <li className="li-style">
+          <Link className="a-style" to={`/favorites/${userId}`}>
             Favoris
           </Link>
         </li>

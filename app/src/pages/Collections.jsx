@@ -1,6 +1,7 @@
 import { Container } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
 import BookComponent from '../components/BookComponent';
+import NavBar from "../components/nav.jsx";
 
 export default function Collections({ userId, collections, favorites }) {
   if (!userId && userId === '') {
@@ -15,6 +16,7 @@ export default function Collections({ userId, collections, favorites }) {
 
   return (
     <Container>
+      <NavBar></NavBar>
       <div style={style} className='my-4'>
         {collections.map((book, i) => (
           <BookComponent
