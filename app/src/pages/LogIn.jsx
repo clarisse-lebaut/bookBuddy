@@ -34,7 +34,7 @@ export default function LogIn() {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Login successful") {
-          navigate(`/user/${data.userId}`); // Utilisez navigate pour rediriger
+          navigate(`/home/${data.userId}`); // Utilisez navigate pour rediriger
         } else {
           setErrorMessage(data.message);
         }

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import LogUp from "./pages/LogUp";
 import Profil from "./pages/Profil";
+import Favorite from "./pages/Favorite";
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
         <Route path="/home/:id" element={<Home />} />
         {/* route pour le profil */}
         <Route path="/profil/:id" element={<Profil />} />
+        {/* route pour les favoris */}
+        <Route path="/favoris/:id" element={<Favorite />} />
       </Routes>
     </>
   );
