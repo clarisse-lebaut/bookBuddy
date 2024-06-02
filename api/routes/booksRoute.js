@@ -191,26 +191,89 @@ router.post('/favorites/:userId/new/:bookId', async (request, response) => {
 });
 
 // Delete a book from user's collection
-// router.delete('/collection/:userId/remove/:bookId', async (request, response) => {
-//   try {
-//     const updatedUser = await User.updateOne(
-//       { _id: request.params.userId },
-//       {
-//         $pull: {
-//           favorites: { _id: mongoose.Types.ObjectId.createFromHexString(request.params.bookId) },
-//         },
-//       }
-//     );
+router.delete('/collection/:userId/remove/:bookId', async (request, response) => {
+  try {
+    // Get the user and make sure he exists in the database.
+    const user = await User.findOne({
+      _id: mongoose.Types.ObjectId.createFromHexString(request.params.userId),
+    });
 
-//     response.status(200).json({
-//       message: "Book has successfully be deleted in user's collection.",
-//       update: updatedUser,
-//     });
-//   } catch (error) {
-//     response.status(404).json({
-//       message: error.message,
-//     });
-//   }
-// });
+    if (user === null) {
+      return response.status(404).json({
+        message: "User doesn't exist in the database.",
+      });
+    }
+
+    // Makes sure the book exists in user's collections
+    if (user.collections.some((book) => book._id.toString() === request.params.bookId) === false) {
+      return response.status(404).json({
+        message: "Book doesn't exist in user's collections.",
+      });
+    }
+
+    // Updates user's collections by deleting the specified book
+    const updatedUser = await User.updateOne(
+      { _id: request.params.userId },
+      {
+        $pull: {
+          collections: { _id: mongoose.Types.ObjectId.createFromHexString(request.params.bookId) },
+        },
+      }
+    );
+
+    // Return a response the response if everything is fine
+    response.status(200).json({
+      message: "Book successfully deleted in user's collection",
+      updates: updatedUser,
+    });
+  } catch (error) {
+    response.status(404).json({
+      message: error.message,
+    });
+  }
+});
+
+// Delete a book from user's favorites
+router.delete('/favorites/:userId/remove/:bookId', async (request, response) => {
+  try {
+    // Get the user and make sure he exists in the database.
+    const user = await User.findOne({
+      _id: mongoose.Types.ObjectId.createFromHexString(request.params.userId),
+    });
+
+    if (user === null) {
+      return response.status(404).json({
+        message: "User doesn't exist in the database.",
+      });
+    }
+
+    // Makes sure the book exists in user's favorites
+    if (user.favorites.some((book) => book._id.toString() === request.params.bookId) === false) {
+      return response.status(404).json({
+        message: "Book doesn't exist in user's collections.",
+      });
+    }
+
+    // Updates user's favorites by deleting the book
+    const updatedUser = await User.updateOne(
+      { _id: request.params.userId },
+      {
+        $pull: {
+          favorites: { _id: mongoose.Types.ObjectId.createFromHexString(request.params.bookId) },
+        },
+      }
+    );
+
+    // Return a response the response if everything is fine
+    response.status(200).json({
+      message: "Book successfully deleted in user's collection",
+      updates: updatedUser,
+    });
+  } catch (error) {
+    response.status(404).json({
+      message: error.message,
+    });
+  }
+});
 
 module.exports = router;
