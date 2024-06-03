@@ -29,7 +29,7 @@ router.get("/books", async (request, response) => {
   }
 });
 
-//
+// Post a new book
 router.post("/books/new", async (request, response) => {
   try {
     await new Book({
